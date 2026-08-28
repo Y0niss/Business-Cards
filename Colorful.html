@@ -1,0 +1,832 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+  <title>Color Splash Business Card</title>
+  <!-- Font Awesome Icons (free) -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <!-- Google Font (Poppins for modern look) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: #0a0a0f;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Poppins', sans-serif;
+      padding: 1.5rem;
+      margin: 0;
+      position: relative;
+      overflow-x: hidden;
+      gap: 1rem;
+    }
+
+    /* animated color splash background */
+    body::before {
+      content: '';
+      position: fixed;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: 
+        radial-gradient(circle at 20% 30%, rgba(255, 0, 150, 0.15) 0%, transparent 40%),
+        radial-gradient(circle at 80% 70%, rgba(0, 255, 200, 0.12) 0%, transparent 40%),
+        radial-gradient(circle at 50% 50%, rgba(255, 200, 0, 0.08) 0%, transparent 50%),
+        radial-gradient(circle at 10% 80%, rgba(100, 0, 255, 0.10) 0%, transparent 35%),
+        radial-gradient(circle at 90% 20%, rgba(255, 100, 0, 0.10) 0%, transparent 35%);
+      animation: splashMove 12s ease-in-out infinite alternate;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    @keyframes splashMove {
+      0% { transform: translate(0, 0) rotate(0deg) scale(1); }
+      25% { transform: translate(2%, -3%) rotate(2deg) scale(1.05); }
+      50% { transform: translate(-1%, 4%) rotate(-1deg) scale(0.98); }
+      75% { transform: translate(3%, 1%) rotate(3deg) scale(1.03); }
+      100% { transform: translate(-2%, -2%) rotate(-2deg) scale(1.02); }
+    }
+
+    /* floating color particles */
+    body::after {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-image: 
+        radial-gradient(2px 2px at 10% 20%, rgba(255, 0, 200, 0.3), transparent),
+        radial-gradient(2px 2px at 30% 70%, rgba(0, 255, 200, 0.3), transparent),
+        radial-gradient(2px 2px at 50% 10%, rgba(255, 200, 0, 0.3), transparent),
+        radial-gradient(2px 2px at 70% 80%, rgba(100, 0, 255, 0.3), transparent),
+        radial-gradient(2px 2px at 90% 40%, rgba(255, 50, 50, 0.3), transparent),
+        radial-gradient(2px 2px at 20% 90%, rgba(0, 200, 255, 0.3), transparent),
+        radial-gradient(2px 2px at 80% 30%, rgba(255, 100, 0, 0.3), transparent),
+        radial-gradient(2px 2px at 40% 50%, rgba(200, 0, 255, 0.3), transparent);
+      background-size: 200px 200px;
+      pointer-events: none;
+      z-index: 0;
+      animation: particleFloat 20s linear infinite;
+    }
+
+    @keyframes particleFloat {
+      0% { background-position: 0 0; }
+      100% { background-position: 200px 200px; }
+    }
+
+    /* Navigation arrows - color splash style */
+    .nav-arrow {
+      width: 56px;
+      height: 56px;
+      min-width: 56px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.06);
+      backdrop-filter: blur(12px);
+      border: 2px solid rgba(255, 255, 255, 0.15);
+      color: #fff;
+      font-size: 1.1rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.4s cubic-bezier(0.2, 0.9, 0.3, 1);
+      box-shadow: 
+        0 0 30px rgba(255, 255, 255, 0.03),
+        inset 0 0 30px rgba(255, 255, 255, 0.02);
+      text-decoration: none;
+      flex-shrink: 0;
+      z-index: 2;
+      font-family: 'Poppins', sans-serif;
+      font-weight: 600;
+      letter-spacing: 0.3px;
+      gap: 4px;
+      font-size: 0.6rem;
+      text-transform: uppercase;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .nav-arrow::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: conic-gradient(from 0deg, transparent, rgba(255, 0, 200, 0.1), transparent, rgba(0, 255, 200, 0.1), transparent, rgba(255, 200, 0, 0.1), transparent);
+      animation: spinGlow 6s linear infinite;
+    }
+
+    .nav-arrow i {
+      font-size: 0.9rem;
+      color: #fff;
+      transition: all 0.3s ease;
+      position: relative;
+      z-index: 1;
+    }
+
+    .nav-arrow span {
+      position: relative;
+      z-index: 1;
+    }
+
+    .nav-arrow:hover {
+      background: rgba(255, 255, 255, 0.12);
+      border-color: rgba(255, 255, 255, 0.3);
+      box-shadow: 0 0 50px rgba(255, 0, 200, 0.15), inset 0 0 30px rgba(255, 255, 255, 0.05);
+      transform: scale(1.05);
+      color: #fff;
+    }
+
+    .nav-arrow:hover i {
+      color: #ff00cc;
+      text-shadow: 0 0 30px rgba(255, 0, 200, 0.4);
+    }
+
+    .nav-arrow:active {
+      transform: scale(0.92);
+    }
+
+    /* main card – color splash style */
+    .card {
+      max-width: 440px;
+      width: 100%;
+      background: rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(20px);
+      border-radius: 2rem;
+      padding: 2.2rem 2rem 2.5rem;
+      position: relative;
+      z-index: 1;
+      border: 2px solid rgba(255, 255, 255, 0.08);
+      box-shadow: 
+        0 8px 40px rgba(0, 0, 0, 0.4),
+        inset 0 0 60px rgba(255, 255, 255, 0.02);
+      transition: all 0.4s cubic-bezier(0.2, 0.9, 0.3, 1);
+      /* Fade-in animation - loads in 1 second */
+      animation: fadeSplash 1s ease-out forwards;
+      opacity: 0;
+      overflow: hidden;
+    }
+
+    /* animated gradient border */
+    .card::before {
+      content: '';
+      position: absolute;
+      top: -2px;
+      left: -2px;
+      right: -2px;
+      bottom: -2px;
+      border-radius: 2rem;
+      background: conic-gradient(from 0deg, 
+        #ff0066, #ff00cc, #6600ff, #0066ff, #00ffcc, #66ff00, #ffcc00, #ff0066);
+      background-size: 400% 400%;
+      z-index: -1;
+      animation: rainbowBorder 6s ease-in-out infinite;
+      filter: blur(0px);
+      opacity: 0.6;
+    }
+
+    .card::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border-radius: 2rem;
+      background: radial-gradient(circle at 30% 20%, rgba(255, 0, 200, 0.05), transparent 50%),
+                  radial-gradient(circle at 70% 80%, rgba(0, 255, 200, 0.05), transparent 50%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    @keyframes rainbowBorder {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    @keyframes fadeSplash {
+      0% { 
+        opacity: 0; 
+        transform: translateY(30px) scale(0.95);
+        filter: blur(8px);
+      }
+      40% {
+        filter: blur(2px);
+        transform: translateY(-5px) scale(1.01);
+      }
+      100% { 
+        opacity: 1; 
+        transform: translateY(0) scale(1);
+        filter: blur(0);
+      }
+    }
+
+    .card:hover {
+      transform: translateY(-4px);
+      box-shadow: 
+        0 8px 40px rgba(0, 0, 0, 0.5),
+        0 0 60px rgba(255, 0, 200, 0.05),
+        inset 0 0 60px rgba(255, 255, 255, 0.03);
+      border-color: rgba(255, 255, 255, 0.15);
+    }
+
+    /* avatar / photo – color splash frame */
+    .avatar {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 1.2rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    .avatar-circle {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 
+        0 0 0 4px rgba(255, 255, 255, 0.1),
+        0 0 0 8px rgba(255, 255, 255, 0.05),
+        0 0 40px rgba(255, 0, 200, 0.2),
+        0 6px 30px rgba(0, 0, 0, 0.3);
+      border: 2px solid rgba(255, 255, 255, 0.15);
+      overflow: hidden;
+      background: linear-gradient(135deg, #1a0a2a, #0a1a2a);
+      position: relative;
+      transition: all 0.4s ease;
+    }
+
+    .avatar-circle::after {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: conic-gradient(from 0deg, 
+        transparent, rgba(255, 0, 200, 0.15), 
+        transparent, rgba(0, 255, 200, 0.15), 
+        transparent, rgba(255, 200, 0, 0.15), 
+        transparent);
+      animation: spinGlow 8s linear infinite;
+      pointer-events: none;
+      z-index: 2;
+    }
+
+    @keyframes spinGlow {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    .avatar-circle img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      position: relative;
+      z-index: 1;
+      /* Lazy loading */
+      loading: lazy;
+    }
+
+    .avatar-circle i {
+      display: none;
+      position: relative;
+      z-index: 1;
+      font-size: 4.5rem;
+      color: rgba(255, 255, 255, 0.3);
+    }
+
+    .avatar-circle img:not([src]), 
+    .avatar-circle img[src=""] {
+      display: none;
+    }
+    .avatar-circle img:not([src]) + i,
+    .avatar-circle img[src=""] + i {
+      display: inline-block;
+    }
+
+    /* name & title – color splash */
+    .name-title {
+      text-align: center;
+      margin-bottom: 1.5rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    .name {
+      font-family: 'Poppins', sans-serif;
+      font-size: 2.2rem;
+      font-weight: 800;
+      background: linear-gradient(135deg, #ff0066, #ff00cc, #6600ff, #0066ff, #00ffcc);
+      background-size: 300% 300%;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      animation: gradientText 4s ease-in-out infinite;
+      letter-spacing: -0.5px;
+      margin-bottom: 0.2rem;
+      text-shadow: none;
+    }
+
+    @keyframes gradientText {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    .name::after {
+      content: '';
+      display: block;
+      width: 60px;
+      height: 3px;
+      margin: 0.4rem auto 0;
+      background: linear-gradient(90deg, transparent, #ff00cc, #00ffcc, transparent);
+      border-radius: 10px;
+    }
+
+    .title {
+      font-family: 'Poppins', sans-serif;
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: rgba(255, 255, 255, 0.7);
+      background: rgba(255, 255, 255, 0.06);
+      display: inline-block;
+      padding: 0.3rem 1.6rem;
+      border-radius: 30px;
+      letter-spacing: 0.5px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      backdrop-filter: blur(2px);
+    }
+
+    .title i {
+      margin-right: 6px;
+      opacity: 0.7;
+      color: #ff00cc;
+    }
+
+    /* divider – color splash */
+    .divider {
+      height: 2px;
+      background: linear-gradient(90deg, transparent, #ff0066, #ff00cc, #6600ff, #0066ff, #00ffcc, transparent);
+      margin: 1.2rem 0 1.6rem;
+      opacity: 0.4;
+      border-radius: 10px;
+      position: relative;
+      animation: dividerPulse 3s ease-in-out infinite;
+    }
+
+    @keyframes dividerPulse {
+      0%, 100% { opacity: 0.3; }
+      50% { opacity: 0.6; }
+    }
+
+    .divider::after {
+      content: '◆';
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      color: #ff00cc;
+      font-size: 0.7rem;
+      background: rgba(10, 10, 15, 0.8);
+      padding: 0 10px;
+      backdrop-filter: blur(8px);
+    }
+
+    /* contact list – color splash */
+    .contact-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0.8rem;
+      margin-bottom: 1.8rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    .contact-item {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      padding: 0.5rem 0.8rem 0.5rem 0.5rem;
+      border-radius: 60px;
+      background: rgba(255, 255, 255, 0.03);
+      transition: all 0.4s cubic-bezier(0.2, 0.9, 0.3, 1);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      text-decoration: none;
+      color: rgba(255, 255, 255, 0.8);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .contact-item::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 0, 200, 0.06), transparent);
+      transition: left 0.6s ease;
+    }
+
+    .contact-item:hover::before {
+      left: 100%;
+    }
+
+    .contact-item:hover {
+      background: rgba(255, 255, 255, 0.06);
+      border-color: rgba(255, 255, 255, 0.15);
+      box-shadow: 0 0 30px rgba(255, 0, 200, 0.04), inset 0 0 30px rgba(255, 255, 255, 0.02);
+      transform: translateX(4px);
+    }
+
+    .contact-icon {
+      width: 44px;
+      height: 44px;
+      background: rgba(255, 255, 255, 0.04);
+      border-radius: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.1rem;
+      color: #ff00cc;
+      flex-shrink: 0;
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      transition: all 0.4s ease;
+    }
+
+    .contact-item:hover .contact-icon {
+      background: rgba(255, 0, 200, 0.08);
+      border-color: rgba(255, 0, 200, 0.2);
+      box-shadow: 0 0 30px rgba(255, 0, 200, 0.05);
+      color: #00ffcc;
+    }
+
+    .contact-info {
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+      min-width: 0;
+    }
+
+    .contact-label {
+      font-size: 0.6rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 1.2px;
+      color: rgba(255, 255, 255, 0.3);
+      opacity: 0.8;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    .contact-value {
+      font-size: 0.95rem;
+      font-weight: 500;
+      color: rgba(255, 255, 255, 0.85);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .contact-item .fa-chevron-right {
+      color: rgba(255, 255, 255, 0.2) !important;
+      opacity: 0.3 !important;
+      transition: all 0.3s ease;
+      font-size: 0.7rem;
+    }
+
+    .contact-item:hover .fa-chevron-right {
+      opacity: 0.8 !important;
+      transform: translateX(4px);
+      color: #ff00cc !important;
+    }
+
+    /* action buttons – color splash */
+    .actions {
+      display: flex;
+      justify-content: center;
+      gap: 0.6rem;
+      flex-wrap: wrap;
+      margin: 0.5rem 0 0.6rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    .action-btn {
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 60px;
+      padding: 0.6rem 1rem;
+      font-weight: 600;
+      font-size: 0.75rem;
+      color: rgba(255, 255, 255, 0.7);
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.4s cubic-bezier(0.2, 0.9, 0.3, 1);
+      cursor: pointer;
+      text-decoration: none;
+      flex: 1 0 auto;
+      justify-content: center;
+      font-family: 'Poppins', sans-serif;
+      letter-spacing: 0.3px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .action-btn::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.05), transparent);
+      transition: left 0.5s ease;
+    }
+
+    .action-btn:hover::before {
+      left: 100%;
+    }
+
+    .action-btn i {
+      font-size: 0.95rem;
+      color: rgba(255, 255, 255, 0.4);
+      transition: all 0.3s ease;
+    }
+
+    .action-btn:hover {
+      background: rgba(255, 255, 255, 0.08);
+      border-color: rgba(255, 255, 255, 0.2);
+      box-shadow: 0 0 30px rgba(255, 0, 200, 0.05);
+      transform: scale(1.02);
+      color: #fff;
+    }
+
+    .action-btn:hover i {
+      color: #ff00cc;
+      text-shadow: 0 0 30px rgba(255, 0, 200, 0.3);
+    }
+
+    /* WhatsApp button – full width, color splash */
+    .action-btn.whatsapp-btn {
+      flex: 1 1 100%;
+      background: rgba(37, 211, 102, 0.06);
+      border-color: rgba(37, 211, 102, 0.15);
+      color: rgba(37, 211, 102, 0.8);
+      margin-top: 0.2rem;
+    }
+
+    .action-btn.whatsapp-btn i {
+      color: #25d366;
+    }
+
+    .action-btn.whatsapp-btn:hover {
+      background: rgba(37, 211, 102, 0.12);
+      border-color: rgba(37, 211, 102, 0.3);
+      box-shadow: 0 0 40px rgba(37, 211, 102, 0.06);
+      color: #25d366;
+    }
+
+    .action-btn.whatsapp-btn:hover i {
+      color: #25d366;
+      text-shadow: 0 0 30px rgba(37, 211, 102, 0.3);
+    }
+
+    /* responsive */
+    @media (max-width: 520px) {
+      body {
+        gap: 0.6rem;
+        padding: 1rem;
+      }
+      .nav-arrow {
+        width: 44px;
+        height: 44px;
+        min-width: 44px;
+        font-size: 0.5rem;
+      }
+      .nav-arrow i {
+        font-size: 0.7rem;
+      }
+    }
+
+    @media (max-width: 440px) {
+      body {
+        gap: 0.4rem;
+        padding: 0.8rem;
+      }
+      .card {
+        padding: 1.6rem 1.2rem 1.8rem;
+        border-radius: 1.4rem;
+      }
+      .card::before {
+        border-radius: 1.4rem;
+      }
+      .card::after {
+        border-radius: 1.4rem;
+      }
+      .name {
+        font-size: 1.8rem;
+      }
+      .avatar-circle {
+        width: 95px;
+        height: 95px;
+      }
+      .contact-item {
+        padding: 0.4rem 0.6rem 0.4rem 0.4rem;
+      }
+      .contact-icon {
+        width: 38px;
+        height: 38px;
+        font-size: 0.95rem;
+      }
+      .action-btn {
+        padding: 0.5rem 0.7rem;
+        font-size: 0.7rem;
+        flex: 1 1 40%;
+        gap: 5px;
+        min-width: 60px;
+      }
+      .action-btn.whatsapp-btn {
+        flex: 1 1 100%;
+      }
+      .nav-arrow {
+        width: 38px;
+        height: 38px;
+        min-width: 38px;
+        font-size: 0.45rem;
+      }
+      .nav-arrow i {
+        font-size: 0.6rem;
+      }
+    }
+
+    @media (max-width: 360px) {
+      body {
+        flex-direction: column;
+        gap: 0.8rem;
+        padding: 1rem;
+      }
+      .nav-arrow {
+        width: 48px;
+        height: 48px;
+        min-width: 48px;
+        font-size: 0.55rem;
+        transform: rotate(90deg);
+      }
+      .nav-arrow:hover {
+        transform: rotate(90deg) scale(1.05);
+      }
+      .nav-arrow:active {
+        transform: rotate(90deg) scale(0.92);
+      }
+      .nav-arrow i {
+        font-size: 0.7rem;
+      }
+      .actions {
+        flex-direction: column;
+        align-items: stretch;
+      }
+      .action-btn {
+        flex: 1 1 auto;
+      }
+      .action-btn.whatsapp-btn {
+        flex: 1 1 auto;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Left Arrow -->
+  <a href="Cyper.html" class="nav-arrow" aria-label="Previous card or back navigation">
+    <i class="fas fa-chevron-left"></i> <span>Prev</span>
+  </a>
+
+  <!-- Main Card -->
+  <div class="card" role="main" aria-label="Color Splash Digital Business Card">
+    <!-- Avatar -->
+    <div class="avatar">
+      <div class="avatar-circle">
+        <img src="vector-avatar.png" alt="Avatar of Younis Ibrahim" loading="lazy" onerror="this.style.display='none'">
+        <i class="fas fa-user-circle" aria-hidden="true"></i>
+      </div>
+    </div>
+
+    <!-- Name & Title -->
+    <div class="name-title">
+      <div class="name">Younis Ibrahim</div>
+      <span class="title"><i class="fas fa-code" style="margin-right: 6px; opacity:0.7;"></i>Web Developer</span>
+    </div>
+
+    <!-- Divider -->
+    <div class="divider"></div>
+
+    <!-- Contact List -->
+    <div class="contact-list">
+      <!-- Phone -->
+      <a href="tel:+201272069150" class="contact-item" aria-label="Call Younis">
+        <span class="contact-icon"><i class="fas fa-phone-alt"></i></span>
+        <span class="contact-info">
+          <span class="contact-label">Phone</span>
+          <span class="contact-value">+20 12 (720) 69 150</span>
+        </span>
+        <i class="fas fa-chevron-right"></i>
+      </a>
+
+      <!-- Email -->
+      <a href="mailto:Ahmad.Ibrahim.abdelslam@gmail.com" class="contact-item" aria-label="Email Younis">
+        <span class="contact-icon"><i class="fas fa-envelope"></i></span>
+        <span class="contact-info">
+          <span class="contact-label">Email</span>
+          <span class="contact-value">Ahmad.Ibrahim.abdelslam@gmail.com</span>
+        </span>
+        <i class="fas fa-chevron-right"></i>
+      </a>
+
+      <!-- Website -->
+      <a href="#" class="contact-item" aria-label="Visit portfolio">
+        <span class="contact-icon"><i class="fas fa-globe"></i></span>
+        <span class="contact-info">
+          <span class="contact-label">Website</span>
+          <span class="contact-value">younis.dev</span>
+        </span>
+        <i class="fas fa-chevron-right"></i>
+      </a>
+
+      <!-- Address -->
+      <div class="contact-item" style="cursor:default;">
+        <span class="contact-icon"><i class="fas fa-map-pin"></i></span>
+        <span class="contact-info">
+          <span class="contact-label">Studio</span>
+          <span class="contact-value">Cairo, Egypt</span>
+        </span>
+      </div>
+    </div>
+
+    <!-- Action Buttons -->
+    <div class="actions">
+      <a href="https://www.linkedin.com/in/ahmad-abdelsalam-91a7a5329/" target="_blank" class="action-btn" aria-label="LinkedIn profile">
+        <i class="fab fa-linkedin-in"></i> LinkedIn
+      </a>
+      <a href="https://x.com/YOUNIS_58" target="_blank" class="action-btn" aria-label="X profile">
+        <i class="fab fa-x-twitter"></i> X
+      </a>
+      <a href="https://github.com/yourusername" target="_blank" class="action-btn" aria-label="GitHub profile">
+        <i class="fab fa-github"></i> GitHub
+      </a>
+      <!-- WhatsApp button - full width, alone on its own line -->
+      <a href="https://wa.me/+201123674523?text=Hi%20I%20want%20to%20make%20my%20own%20Business%20card" target="_blank" class="action-btn whatsapp-btn" aria-label="Contact on WhatsApp">
+        <i class="fab fa-whatsapp"></i> Make It Yours
+      </a>
+    </div>
+  </div>
+
+  <!-- Right Arrow -->
+  <a href="Minimalist.html" class="nav-arrow" aria-label="Next card or forward navigation">
+    <span>Next</span> <i class="fas fa-chevron-right"></i>
+  </a>
+
+  <!-- Page Transition Styles & Script -->
+  <style>
+    body { animation: none; }
+    .page-transition {
+      animation: fadeOut 0.3s ease forwards;
+    }
+    @keyframes fadeOut {
+      0% { opacity: 1; }
+      100% { opacity: 0; }
+    }
+  </style>
+
+  <script>
+    // Page transition for internal links
+    document.addEventListener('click', function(e) {
+      const link = e.target.closest('a');
+      if (link && link.href && !link.target && link.href.indexOf('Business-card-2.html') !== -1) {
+        e.preventDefault();
+        document.body.classList.add('page-transition');
+        setTimeout(() => {
+          window.location.href = link.href;
+        }, 300);
+      }
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,592 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+  <title>Minimal Business Card</title>
+  <!-- Font Awesome Icons (free) -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <!-- Google Font (Inter for clean minimalism) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: #f5f5f7;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      padding: 1.5rem;
+      margin: 0;
+      gap: 1rem;
+      position: relative;
+    }
+
+    /* subtle background texture */
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-image: 
+        radial-gradient(circle at 20% 50%, rgba(0, 0, 0, 0.02) 0%, transparent 60%),
+        radial-gradient(circle at 80% 50%, rgba(0, 0, 0, 0.02) 0%, transparent 60%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* Navigation arrows - minimal style */
+    .nav-arrow {
+      width: 48px;
+      height: 48px;
+      min-width: 48px;
+      border-radius: 50%;
+      background: #ffffff;
+      border: 1px solid #e8e8ea;
+      color: #1a1a1e;
+      font-size: 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+      text-decoration: none;
+      flex-shrink: 0;
+      z-index: 2;
+      font-family: 'Inter', sans-serif;
+      font-weight: 500;
+      letter-spacing: 0.2px;
+      gap: 4px;
+      font-size: 0.55rem;
+      text-transform: uppercase;
+      color: #1a1a1e;
+    }
+
+    .nav-arrow i {
+      font-size: 0.85rem;
+      color: #1a1a1e;
+      transition: all 0.3s ease;
+    }
+
+    .nav-arrow:hover {
+      background: #f0f0f2;
+      border-color: #d0d0d4;
+      transform: scale(1.04);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+    }
+
+    .nav-arrow:active {
+      transform: scale(0.94);
+    }
+
+    /* main card – minimal style */
+    .card {
+      max-width: 400px;
+      width: 100%;
+      background: #ffffff;
+      border-radius: 1.5rem;
+      padding: 2.5rem 2rem 2.8rem;
+      position: relative;
+      z-index: 1;
+      box-shadow: 
+        0 4px 24px rgba(0, 0, 0, 0.04),
+        0 1px 4px rgba(0, 0, 0, 0.02),
+        inset 0 0 0 1px rgba(255, 255, 255, 0.8);
+      transition: all 0.4s cubic-bezier(0.2, 0.9, 0.3, 1);
+      /* Fade-in animation - loads in 1 second */
+      animation: fadeMinimal 0.9s ease-out forwards;
+      opacity: 0;
+    }
+
+    @keyframes fadeMinimal {
+      0% { 
+        opacity: 0; 
+        transform: translateY(16px) scale(0.98);
+      }
+      100% { 
+        opacity: 1; 
+        transform: translateY(0) scale(1);
+      }
+    }
+
+    .card:hover {
+      transform: translateY(-2px);
+      box-shadow: 
+        0 8px 40px rgba(0, 0, 0, 0.06),
+        0 1px 4px rgba(0, 0, 0, 0.02),
+        inset 0 0 0 1px rgba(255, 255, 255, 0.8);
+    }
+
+    /* avatar – minimal */
+    .avatar {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 1.4rem;
+    }
+
+    .avatar-circle {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      background: #f0f0f2;
+      position: relative;
+      box-shadow: 0 0 0 1px #e8e8ea;
+    }
+
+    .avatar-circle img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      position: relative;
+      z-index: 1;
+      loading: lazy;
+    }
+
+    .avatar-circle i {
+      display: none;
+      position: relative;
+      z-index: 1;
+      font-size: 3.8rem;
+      color: #b0b0b8;
+    }
+
+    .avatar-circle img:not([src]), 
+    .avatar-circle img[src=""] {
+      display: none;
+    }
+    .avatar-circle img:not([src]) + i,
+    .avatar-circle img[src=""] + i {
+      display: inline-block;
+    }
+
+    /* name & title – minimal */
+    .name-title {
+      text-align: center;
+      margin-bottom: 1.6rem;
+    }
+
+    .name {
+      font-family: 'Inter', sans-serif;
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: #1a1a1e;
+      letter-spacing: -0.5px;
+      margin-bottom: 0.15rem;
+    }
+
+    .name::after {
+      content: '';
+      display: block;
+      width: 32px;
+      height: 2px;
+      margin: 0.6rem auto 0;
+      background: #d0d0d4;
+      border-radius: 4px;
+    }
+
+    .title {
+      font-family: 'Inter', sans-serif;
+      font-size: 0.85rem;
+      font-weight: 400;
+      color: #6e6e78;
+      display: inline-block;
+      padding: 0.15rem 0;
+      letter-spacing: 0.2px;
+    }
+
+    .title i {
+      margin-right: 6px;
+      opacity: 0.5;
+      color: #6e6e78;
+      font-size: 0.75rem;
+    }
+
+    /* divider – minimal */
+    .divider {
+      height: 1px;
+      background: linear-gradient(90deg, transparent, #e8e8ea, transparent);
+      margin: 1rem 0 1.4rem;
+      opacity: 0.6;
+      position: relative;
+    }
+
+    /* contact list – minimal */
+    .contact-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+      margin-bottom: 1.8rem;
+    }
+
+    .contact-item {
+      display: flex;
+      align-items: center;
+      gap: 0.9rem;
+      padding: 0.4rem 0.6rem 0.4rem 0.4rem;
+      border-radius: 12px;
+      background: transparent;
+      transition: all 0.3s ease;
+      text-decoration: none;
+      color: #1a1a1e;
+      position: relative;
+    }
+
+    .contact-item:hover {
+      background: #f5f5f7;
+      transform: translateX(2px);
+    }
+
+    .contact-icon {
+      width: 38px;
+      height: 38px;
+      background: #f5f5f7;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.95rem;
+      color: #1a1a1e;
+      flex-shrink: 0;
+      transition: all 0.3s ease;
+    }
+
+    .contact-item:hover .contact-icon {
+      background: #e8e8ea;
+    }
+
+    .contact-info {
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+      min-width: 0;
+    }
+
+    .contact-label {
+      font-size: 0.55rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      color: #9a9aa2;
+      font-family: 'Inter', sans-serif;
+    }
+
+    .contact-value {
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: #1a1a1e;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .contact-item .fa-chevron-right {
+      color: #c8c8ce !important;
+      opacity: 0.3 !important;
+      transition: all 0.3s ease;
+      font-size: 0.6rem;
+    }
+
+    .contact-item:hover .fa-chevron-right {
+      opacity: 0.7 !important;
+      transform: translateX(2px);
+    }
+
+    /* action buttons – minimal */
+    .actions {
+      display: flex;
+      justify-content: center;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+      margin: 0.2rem 0 0.2rem;
+    }
+
+    .action-btn {
+      background: #f5f5f7;
+      border: 1px solid #e8e8ea;
+      border-radius: 40px;
+      padding: 0.5rem 0.9rem;
+      font-weight: 500;
+      font-size: 0.7rem;
+      color: #1a1a1e;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.3s ease;
+      cursor: pointer;
+      text-decoration: none;
+      flex: 1 0 auto;
+      justify-content: center;
+      font-family: 'Inter', sans-serif;
+      letter-spacing: 0.1px;
+    }
+
+    .action-btn i {
+      font-size: 0.85rem;
+      color: #6e6e78;
+      transition: all 0.3s ease;
+    }
+
+    .action-btn:hover {
+      background: #ececee;
+      border-color: #d0d0d4;
+      transform: scale(1.02);
+      color: #1a1a1e;
+    }
+
+    .action-btn:hover i {
+      color: #1a1a1e;
+    }
+
+    /* WhatsApp button – full width, minimal */
+    .action-btn.whatsapp-btn {
+      flex: 1 1 100%;
+      background: #f0f7f0;
+      border-color: #d0e0d0;
+      color: #2a5a2a;
+      margin-top: 0.15rem;
+    }
+
+    .action-btn.whatsapp-btn i {
+      color: #3a8a4a;
+    }
+
+    .action-btn.whatsapp-btn:hover {
+      background: #e4efe4;
+      border-color: #b0d0b0;
+      color: #1a4a1a;
+    }
+
+    .action-btn.whatsapp-btn:hover i {
+      color: #2a7a3a;
+    }
+
+    /* responsive */
+    @media (max-width: 520px) {
+      body {
+        gap: 0.6rem;
+        padding: 1rem;
+      }
+      .nav-arrow {
+        width: 40px;
+        height: 40px;
+        min-width: 40px;
+        font-size: 0.45rem;
+      }
+      .nav-arrow i {
+        font-size: 0.7rem;
+      }
+    }
+
+    @media (max-width: 440px) {
+      body {
+        gap: 0.4rem;
+        padding: 0.8rem;
+      }
+      .card {
+        padding: 1.8rem 1.2rem 2rem;
+        border-radius: 1.2rem;
+      }
+      .name {
+        font-size: 1.5rem;
+      }
+      .avatar-circle {
+        width: 80px;
+        height: 80px;
+      }
+      .contact-item {
+        padding: 0.3rem 0.4rem 0.3rem 0.3rem;
+      }
+      .contact-icon {
+        width: 34px;
+        height: 34px;
+        font-size: 0.8rem;
+      }
+      .action-btn {
+        padding: 0.4rem 0.6rem;
+        font-size: 0.65rem;
+        flex: 1 1 40%;
+        gap: 4px;
+        min-width: 55px;
+      }
+      .action-btn.whatsapp-btn {
+        flex: 1 1 100%;
+      }
+      .nav-arrow {
+        width: 34px;
+        height: 34px;
+        min-width: 34px;
+        font-size: 0.4rem;
+      }
+      .nav-arrow i {
+        font-size: 0.55rem;
+      }
+    }
+
+    @media (max-width: 360px) {
+      body {
+        flex-direction: column;
+        gap: 0.8rem;
+        padding: 1rem;
+      }
+      .nav-arrow {
+        width: 44px;
+        height: 44px;
+        min-width: 44px;
+        font-size: 0.5rem;
+        transform: rotate(90deg);
+      }
+      .nav-arrow:hover {
+        transform: rotate(90deg) scale(1.04);
+      }
+      .nav-arrow:active {
+        transform: rotate(90deg) scale(0.94);
+      }
+      .nav-arrow i {
+        font-size: 0.65rem;
+      }
+      .actions {
+        flex-direction: column;
+        align-items: stretch;
+      }
+      .action-btn {
+        flex: 1 1 auto;
+      }
+      .action-btn.whatsapp-btn {
+        flex: 1 1 auto;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Left Arrow -->
+  <a href="Colorful.html" class="nav-arrow" aria-label="Previous card or back navigation">
+    <i class="fas fa-chevron-left"></i> Prev
+  </a>
+
+  <!-- Main Card -->
+  <div class="card" role="main" aria-label="Minimal Digital Business Card">
+    <!-- Avatar -->
+    <div class="avatar">
+      <div class="avatar-circle">
+        <img src="vector-avatar.png" alt="Avatar of Younis Ibrahim" loading="lazy" onerror="this.style.display='none'">
+        <i class="fas fa-user-circle" aria-hidden="true"></i>
+      </div>
+    </div>
+
+    <!-- Name & Title -->
+    <div class="name-title">
+      <div class="name">Younis Ibrahim</div>
+      <span class="title"><i class="fas fa-code" style="margin-right: 6px;"></i>Web Developer</span>
+    </div>
+
+    <!-- Divider -->
+    <div class="divider"></div>
+
+    <!-- Contact List -->
+    <div class="contact-list">
+      <!-- Phone -->
+      <a href="tel:+201272069150" class="contact-item" aria-label="Call Younis">
+        <span class="contact-icon"><i class="fas fa-phone-alt"></i></span>
+        <span class="contact-info">
+          <span class="contact-label">Phone</span>
+          <span class="contact-value">+20 12 (720) 69 150</span>
+        </span>
+        <i class="fas fa-chevron-right"></i>
+      </a>
+
+      <!-- Email -->
+      <a href="mailto:Ahmad.Ibrahim.abdelslam@gmail.com" class="contact-item" aria-label="Email Younis">
+        <span class="contact-icon"><i class="fas fa-envelope"></i></span>
+        <span class="contact-info">
+          <span class="contact-label">Email</span>
+          <span class="contact-value">Ahmad.Ibrahim.abdelslam@gmail.com</span>
+        </span>
+        <i class="fas fa-chevron-right"></i>
+      </a>
+
+      <!-- Website -->
+      <a href="#" class="contact-item" aria-label="Visit portfolio">
+        <span class="contact-icon"><i class="fas fa-globe"></i></span>
+        <span class="contact-info">
+          <span class="contact-label">Website</span>
+          <span class="contact-value">younis.dev</span>
+        </span>
+        <i class="fas fa-chevron-right"></i>
+      </a>
+
+      <!-- Address -->
+      <div class="contact-item" style="cursor:default;">
+        <span class="contact-icon"><i class="fas fa-map-pin"></i></span>
+        <span class="contact-info">
+          <span class="contact-label">Studio</span>
+          <span class="contact-value">Cairo, Egypt</span>
+        </span>
+      </div>
+    </div>
+
+    <!-- Action Buttons -->
+    <div class="actions">
+      <a href="https://www.linkedin.com/in/ahmad-abdelsalam-91a7a5329/" target="_blank" class="action-btn" aria-label="LinkedIn profile">
+        <i class="fab fa-linkedin-in"></i> LinkedIn
+      </a>
+      <a href="https://x.com/YOUNIS_58" target="_blank" class="action-btn" aria-label="X profile">
+        <i class="fab fa-x-twitter"></i> X
+      </a>
+      <a href="https://github.com/yourusername" target="_blank" class="action-btn" aria-label="GitHub profile">
+        <i class="fab fa-github"></i> GitHub
+      </a>
+      <!-- WhatsApp button - full width, alone on its own line -->
+      <a href="https://wa.me/+201123674523?text=Hi%20I%20want%20to%20make%20my%20own%20Business%20card" target="_blank" class="action-btn whatsapp-btn" aria-label="Contact on WhatsApp">
+        <i class="fab fa-whatsapp"></i> Make It Yours
+      </a>
+    </div>
+  </div>
+
+  <!-- Right Arrow -->
+  <a href="Vintage.html" class="nav-arrow" aria-label="Next card or forward navigation">
+    Next <i class="fas fa-chevron-right"></i>
+  </a>
+
+  <!-- Page Transition Styles & Script -->
+  <style>
+    body { animation: none; }
+    .page-transition {
+      animation: fadeOut 0.25s ease forwards;
+    }
+    @keyframes fadeOut {
+      0% { opacity: 1; }
+      100% { opacity: 0; }
+    }
+  </style>
+
+  <script>
+    // Page transition for internal links
+    document.addEventListener('click', function(e) {
+      const link = e.target.closest('a');
+      if (link && link.href && !link.target && link.href.indexOf('Business-card-2.html') !== -1) {
+        e.preventDefault();
+        document.body.classList.add('page-transition');
+        setTimeout(() => {
+          window.location.href = link.href;
+        }, 250);
+      }
+    });
+  </script>
+</body>
+</html>

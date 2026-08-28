@@ -1,0 +1,683 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+  <title>Vintage Business Card</title>
+  <!-- Font Awesome Icons (free) -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <!-- Google Font (Playfair Display for vintage + Inter for readability) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,800;0,900;1,400;1,600;1,700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: #d4c5a9;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      padding: 1.5rem;
+      margin: 0;
+      position: relative;
+      gap: 1rem;
+    }
+
+    /* vintage paper texture background */
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-image: 
+        url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23b8a58b' fill-opacity='0.15'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* Navigation arrows - vintage style */
+    .nav-arrow {
+      width: 56px;
+      height: 56px;
+      min-width: 56px;
+      border-radius: 50%;
+      background: #f5ede1;
+      border: 2px solid #c4ad93;
+      color: #6a5a48;
+      font-size: 1.1rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 
+        0 4px 12px rgba(80, 60, 40, 0.15),
+        inset 0 0 20px rgba(180, 150, 120, 0.08),
+        0 2px 0 #b8a085;
+      text-decoration: none;
+      flex-shrink: 0;
+      z-index: 2;
+      font-family: 'Inter', sans-serif;
+      font-weight: 500;
+      letter-spacing: 0.3px;
+      gap: 4px;
+      font-size: 0.6rem;
+      text-transform: uppercase;
+    }
+
+    .nav-arrow i {
+      font-size: 0.9rem;
+      color: #6a5a48;
+      transition: all 0.3s ease;
+    }
+
+    .nav-arrow:hover {
+      background: #e8dcc8;
+      border-color: #b09878;
+      transform: scale(1.05);
+      box-shadow: 0 6px 20px rgba(80, 60, 40, 0.2), 0 2px 0 #b8a085;
+      color: #3d3228;
+    }
+
+    .nav-arrow:hover i {
+      color: #3d3228;
+    }
+
+    .nav-arrow:active {
+      transform: scale(0.92);
+    }
+
+    /* main card – vintage style */
+    .card {
+      max-width: 440px;
+      width: 100%;
+      background: #f5ede1;
+      border-radius: 0.5rem;
+      padding: 2.2rem 2rem 2.5rem;
+      position: relative;
+      z-index: 1;
+      border: 3px solid #c4ad93;
+      box-shadow: 
+        0 8px 32px rgba(80, 60, 40, 0.25),
+        inset 0 0 60px rgba(180, 150, 120, 0.15),
+        0 4px 0 #b8a085,
+        0 8px 0 #a08870,
+        0 12px 20px rgba(0,0,0,0.2);
+      transition: all 0.3s ease;
+      /* Fade-in animation - loads in 1 second */
+      animation: fadeVintage 1s ease-out forwards;
+      opacity: 0;
+    }
+
+    @keyframes fadeVintage {
+      0% { 
+        opacity: 0; 
+        transform: translateY(20px) scale(0.97);
+        filter: sepia(0.3) brightness(0.8);
+      }
+      50% {
+        filter: sepia(0.1) brightness(1.05);
+        transform: translateY(-2px) scale(1.005);
+      }
+      100% { 
+        opacity: 1; 
+        transform: translateY(0) scale(1);
+        filter: sepia(0) brightness(1);
+      }
+    }
+
+    .card::before {
+      content: '';
+      position: absolute;
+      top: 8px;
+      left: 8px;
+      right: 8px;
+      bottom: 8px;
+      border: 1px solid rgba(180, 150, 120, 0.25);
+      border-radius: 0.2rem;
+      pointer-events: none;
+    }
+
+    .card:hover {
+      transform: translateY(-3px);
+      box-shadow: 
+        0 8px 32px rgba(80, 60, 40, 0.3),
+        inset 0 0 60px rgba(180, 150, 120, 0.2),
+        0 4px 0 #b8a085,
+        0 8px 0 #a08870,
+        0 16px 30px rgba(0,0,0,0.25);
+    }
+
+    /* avatar / photo – vintage frame */
+    .avatar {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 1.2rem;
+    }
+
+    .avatar-circle {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 
+        0 0 0 4px #d4c0a8,
+        0 0 0 8px #c4ad93,
+        0 6px 20px rgba(80, 60, 40, 0.25);
+      border: 2px solid #b09878;
+      overflow: hidden;
+      background: #dccdb8;
+      position: relative;
+    }
+
+    .avatar-circle::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: radial-gradient(circle at 30% 30%, rgba(255, 240, 220, 0.15), transparent 60%);
+      pointer-events: none;
+      z-index: 2;
+    }
+
+    .avatar-circle img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      position: relative;
+      z-index: 1;
+      filter: sepia(0.15) contrast(1.05);
+      /* Lazy loading - image loads when it enters viewport */
+      loading: lazy;
+    }
+
+    .avatar-circle i {
+      display: none;
+      position: relative;
+      z-index: 1;
+      font-size: 4.5rem;
+      color: #8a7a64;
+    }
+
+    .avatar-circle img:not([src]), 
+    .avatar-circle img[src=""] {
+      display: none;
+    }
+    .avatar-circle img:not([src]) + i,
+    .avatar-circle img[src=""] + i {
+      display: inline-block;
+    }
+
+    /* name & title – vintage typography */
+    .name-title {
+      text-align: center;
+      margin-bottom: 1.5rem;
+    }
+
+    .name {
+      font-family: 'Playfair Display', 'Times New Roman', serif;
+      font-size: 2.2rem;
+      font-weight: 700;
+      font-style: italic;
+      color: #3d3228;
+      letter-spacing: 0.5px;
+      text-shadow: 0 1px 0 rgba(255, 240, 220, 0.5);
+      margin-bottom: 0.2rem;
+    }
+
+    .name::after {
+      content: '';
+      display: block;
+      width: 60px;
+      height: 2px;
+      margin: 0.4rem auto 0;
+      background: linear-gradient(90deg, transparent, #b09878, transparent);
+    }
+
+    .title {
+      font-family: 'Playfair Display', 'Times New Roman', serif;
+      font-size: 0.95rem;
+      font-weight: 400;
+      font-style: italic;
+      color: #6a5a48;
+      background: rgba(180, 150, 120, 0.1);
+      display: inline-block;
+      padding: 0.2rem 1.6rem;
+      border-radius: 20px;
+      letter-spacing: 0.5px;
+      border: 1px solid rgba(180, 150, 120, 0.2);
+      backdrop-filter: blur(2px);
+    }
+
+    .title i {
+      margin-right: 6px;
+      opacity: 0.6;
+    }
+
+    /* divider – vintage ornamental */
+    .divider {
+      height: 2px;
+      background: linear-gradient(90deg, transparent, #b8a085, #8a7a64, #b8a085, transparent);
+      margin: 1.2rem 0 1.6rem;
+      opacity: 0.5;
+      border-radius: 10px;
+      position: relative;
+    }
+
+    .divider::after {
+      content: '✦';
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      color: #8a7a64;
+      font-size: 0.8rem;
+      background: #f5ede1;
+      padding: 0 10px;
+    }
+
+    /* contact list – vintage style */
+    .contact-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0.8rem;
+      margin-bottom: 1.8rem;
+    }
+
+    .contact-item {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      padding: 0.5rem 0.8rem 0.5rem 0.5rem;
+      border-radius: 40px;
+      background: rgba(210, 190, 170, 0.15);
+      transition: all 0.3s ease;
+      border: 1px solid rgba(180, 150, 120, 0.12);
+      text-decoration: none;
+      color: #3d3228;
+      position: relative;
+    }
+
+    .contact-item:hover {
+      background: rgba(180, 150, 120, 0.12);
+      border-color: rgba(160, 130, 100, 0.3);
+      box-shadow: 0 4px 12px rgba(80, 60, 40, 0.06);
+      transform: translateX(3px);
+    }
+
+    .contact-icon {
+      width: 44px;
+      height: 44px;
+      background: rgba(180, 150, 120, 0.08);
+      border-radius: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.1rem;
+      color: #6a5a48;
+      flex-shrink: 0;
+      border: 1px solid rgba(180, 150, 120, 0.15);
+      transition: all 0.3s ease;
+    }
+
+    .contact-item:hover .contact-icon {
+      background: rgba(180, 150, 120, 0.15);
+      border-color: rgba(160, 130, 100, 0.3);
+    }
+
+    .contact-info {
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+      min-width: 0;
+    }
+
+    .contact-label {
+      font-size: 0.6rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: #8a7a64;
+      opacity: 0.7;
+      font-family: 'Inter', sans-serif;
+    }
+
+    .contact-value {
+      font-size: 0.95rem;
+      font-weight: 500;
+      color: #3d3228;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .contact-item .fa-chevron-right {
+      color: #b09878 !important;
+      opacity: 0.3 !important;
+      transition: all 0.3s ease;
+      font-size: 0.7rem;
+    }
+
+    .contact-item:hover .fa-chevron-right {
+      opacity: 0.7 !important;
+      transform: translateX(3px);
+    }
+
+    /* action buttons – vintage style */
+    .actions {
+      display: flex;
+      justify-content: center;
+      gap: 0.6rem;
+      flex-wrap: wrap;
+      margin: 0.5rem 0 0.6rem;
+    }
+
+    .action-btn {
+      background: rgba(210, 190, 170, 0.12);
+      border: 1px solid rgba(180, 150, 120, 0.15);
+      border-radius: 40px;
+      padding: 0.6rem 1rem;
+      font-weight: 500;
+      font-size: 0.75rem;
+      color: #4d3d2d;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.3s ease;
+      cursor: pointer;
+      text-decoration: none;
+      flex: 1 0 auto;
+      justify-content: center;
+      font-family: 'Inter', sans-serif;
+      letter-spacing: 0.3px;
+      position: relative;
+    }
+
+    .action-btn i {
+      font-size: 0.95rem;
+      color: #6a5a48;
+      transition: all 0.3s ease;
+    }
+
+    .action-btn:hover {
+      background: rgba(180, 150, 120, 0.15);
+      border-color: rgba(160, 130, 100, 0.35);
+      box-shadow: 0 4px 12px rgba(80, 60, 40, 0.06);
+      transform: scale(1.02);
+      color: #2d2218;
+    }
+
+    .action-btn:hover i {
+      color: #8a6a48;
+    }
+
+    /* WhatsApp button – full width, vintage green */
+    .action-btn.whatsapp-btn {
+      flex: 1 1 100%;
+      background: rgba(37, 211, 102, 0.06);
+      border-color: rgba(37, 211, 102, 0.15);
+      color: #4d6a4d;
+      margin-top: 0.2rem;
+    }
+
+    .action-btn.whatsapp-btn i {
+      color: #2d8a4d;
+    }
+
+    .action-btn.whatsapp-btn:hover {
+      background: rgba(37, 211, 102, 0.1);
+      border-color: rgba(37, 211, 102, 0.25);
+      box-shadow: 0 4px 12px rgba(37, 211, 102, 0.06);
+      color: #2d5a2d;
+    }
+
+    .action-btn.whatsapp-btn:hover i {
+      color: #1a7a3a;
+    }
+
+    /* vintage decorative corner elements */
+    .card::after {
+      content: '✦ ✦ ✦';
+      position: absolute;
+      bottom: 12px;
+      right: 24px;
+      font-size: 0.5rem;
+      color: #b8a085;
+      opacity: 0.3;
+      letter-spacing: 6px;
+    }
+
+    /* responsive */
+    @media (max-width: 520px) {
+      body {
+        gap: 0.6rem;
+        padding: 1rem;
+      }
+      .nav-arrow {
+        width: 44px;
+        height: 44px;
+        min-width: 44px;
+        font-size: 0.5rem;
+      }
+      .nav-arrow i {
+        font-size: 0.7rem;
+      }
+    }
+
+    @media (max-width: 440px) {
+      body {
+        gap: 0.4rem;
+        padding: 0.8rem;
+      }
+      .card {
+        padding: 1.6rem 1.2rem 1.8rem;
+        border-radius: 0.4rem;
+      }
+      .name {
+        font-size: 1.8rem;
+      }
+      .avatar-circle {
+        width: 95px;
+        height: 95px;
+      }
+      .contact-item {
+        padding: 0.4rem 0.6rem 0.4rem 0.4rem;
+      }
+      .contact-icon {
+        width: 38px;
+        height: 38px;
+        font-size: 0.95rem;
+      }
+      .action-btn {
+        padding: 0.5rem 0.7rem;
+        font-size: 0.7rem;
+        flex: 1 1 40%;
+        gap: 5px;
+        min-width: 60px;
+      }
+      .action-btn.whatsapp-btn {
+        flex: 1 1 100%;
+      }
+      .card::after {
+        right: 16px;
+        bottom: 10px;
+        font-size: 0.4rem;
+      }
+      .nav-arrow {
+        width: 38px;
+        height: 38px;
+        min-width: 38px;
+        font-size: 0.45rem;
+      }
+      .nav-arrow i {
+        font-size: 0.6rem;
+      }
+    }
+
+    @media (max-width: 360px) {
+      body {
+        flex-direction: column;
+        gap: 0.8rem;
+        padding: 1rem;
+      }
+      .nav-arrow {
+        width: 48px;
+        height: 48px;
+        min-width: 48px;
+        font-size: 0.55rem;
+        transform: rotate(90deg);
+      }
+      .nav-arrow:hover {
+        transform: rotate(90deg) scale(1.05);
+      }
+      .nav-arrow:active {
+        transform: rotate(90deg) scale(0.92);
+      }
+      .nav-arrow i {
+        font-size: 0.7rem;
+      }
+      .actions {
+        flex-direction: column;
+        align-items: stretch;
+      }
+      .action-btn {
+        flex: 1 1 auto;
+      }
+      .action-btn.whatsapp-btn {
+        flex: 1 1 auto;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Left Arrow -->
+  <a href="Minimalist.html" class="nav-arrow" aria-label="Previous card or back navigation">
+    <i class="fas fa-chevron-left"></i> Prev
+  </a>
+
+  <!-- Main Card -->
+  <div class="card" role="main" aria-label="Vintage Digital Business Card">
+    <!-- Avatar -->
+    <div class="avatar">
+      <div class="avatar-circle">
+        <!-- Lazy loading added with loading="lazy" -->
+        <img src="vector-avatar.png" alt="Avatar of Younis Ibrahim" loading="lazy" onerror="this.style.display='none'">
+        <i class="fas fa-user-circle" aria-hidden="true"></i>
+      </div>
+    </div>
+
+    <!-- Name & Title -->
+    <div class="name-title">
+      <div class="name">Younis Ibrahim</div>
+      <span class="title"><i class="fas fa-feather-alt" style="margin-right: 6px; opacity:0.6;"></i>Web Developer</span>
+    </div>
+
+    <!-- Divider -->
+    <div class="divider"></div>
+
+    <!-- Contact List -->
+    <div class="contact-list">
+      <!-- Phone -->
+      <a href="tel:+201272069150" class="contact-item" aria-label="Call Younis">
+        <span class="contact-icon"><i class="fas fa-phone-alt"></i></span>
+        <span class="contact-info">
+          <span class="contact-label">Phone</span>
+          <span class="contact-value">+20 12 (720) 69 150</span>
+        </span>
+        <i class="fas fa-chevron-right"></i>
+      </a>
+
+      <!-- Email -->
+      <a href="mailto:Ahmad.Ibrahim.abdelslam@gmail.com" class="contact-item" aria-label="Email Younis">
+        <span class="contact-icon"><i class="fas fa-envelope"></i></span>
+        <span class="contact-info">
+          <span class="contact-label">Email</span>
+          <span class="contact-value">Ahmad.Ibrahim.abdelslam@gmail.com</span>
+        </span>
+        <i class="fas fa-chevron-right"></i>
+      </a>
+
+      <!-- Website -->
+      <a href="#" class="contact-item" aria-label="Visit portfolio">
+        <span class="contact-icon"><i class="fas fa-globe"></i></span>
+        <span class="contact-info">
+          <span class="contact-label">Website</span>
+          <span class="contact-value">younis.dev</span>
+        </span>
+        <i class="fas fa-chevron-right"></i>
+      </a>
+
+      <!-- Address -->
+      <div class="contact-item" style="cursor:default;">
+        <span class="contact-icon"><i class="fas fa-map-pin"></i></span>
+        <span class="contact-info">
+          <span class="contact-label">Studio</span>
+          <span class="contact-value">Cairo, Egypt</span>
+        </span>
+      </div>
+    </div>
+
+    <!-- Action Buttons -->
+    <div class="actions">
+      <a href="https://www.linkedin.com/in/ahmad-abdelsalam-91a7a5329/" target="_blank" class="action-btn" aria-label="LinkedIn profile">
+        <i class="fab fa-linkedin-in"></i> LinkedIn
+      </a>
+      <a href="https://x.com/YOUNIS_58" target="_blank" class="action-btn" aria-label="X profile">
+        <i class="fab fa-x-twitter"></i> X
+      </a>
+      <a href="https://github.com/yourusername" target="_blank" class="action-btn" aria-label="GitHub profile">
+        <i class="fab fa-github"></i> GitHub
+      </a>
+      <!-- WhatsApp button - full width, alone on its own line -->
+      <a href="https://wa.me/+201123674523?text=Hi%20I%20want%20to%20make%20my%20own%20Business%20card" target="_blank" class="action-btn whatsapp-btn" aria-label="Contact on WhatsApp">
+        <i class="fab fa-whatsapp"></i> Make It Yours
+      </a>
+    </div>
+  </div>
+
+  <!-- Right Arrow -->
+  <a href="Maximalist.html" class="nav-arrow" aria-label="Next card or forward navigation">
+    Next <i class="fas fa-chevron-right"></i>
+  </a>
+
+  <!-- Page Transition Styles & Script -->
+  <style>
+    body { animation: none; }
+    .page-transition {
+      animation: fadeOut 0.3s ease forwards;
+    }
+    @keyframes fadeOut {
+      0% { opacity: 1; }
+      100% { opacity: 0; }
+    }
+  </style>
+
+  <script>
+    // Page transition for internal links
+    document.addEventListener('click', function(e) {
+      const link = e.target.closest('a');
+      if (link && link.href && !link.target && link.href.indexOf('Business-card-2.html') !== -1) {
+        e.preventDefault();
+        document.body.classList.add('page-transition');
+        setTimeout(() => {
+          window.location.href = link.href;
+        }, 300);
+      }
+    });
+  </script>
+</body>
+</html>

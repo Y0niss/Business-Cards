@@ -1,0 +1,854 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+  <title>Cowboy Business Card</title>
+  <!-- Font Awesome Icons (free) -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <!-- Google Font (Playfair Display for western + Inter for readability) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,800;0,900;1,400;1,600;1,700;1,800;1,900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: #2a1f18;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Inter', sans-serif;
+      padding: 1.5rem;
+      margin: 0;
+      gap: 1rem;
+      position: relative;
+      overflow-x: hidden;
+    }
+
+    /* western texture background - like aged leather */
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: 
+        radial-gradient(circle at 20% 30%, rgba(180, 120, 60, 0.05) 0%, transparent 50%),
+        radial-gradient(circle at 80% 70%, rgba(120, 80, 40, 0.05) 0%, transparent 50%),
+        radial-gradient(circle at 50% 50%, rgba(160, 100, 50, 0.03) 0%, transparent 50%),
+        repeating-linear-gradient(45deg, transparent, transparent 20px, rgba(180, 150, 100, 0.015) 20px, rgba(180, 150, 100, 0.015) 21px),
+        repeating-linear-gradient(-45deg, transparent, transparent 20px, rgba(180, 150, 100, 0.015) 20px, rgba(180, 150, 100, 0.015) 21px);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* Navigation arrows - cowboy style */
+    .nav-arrow {
+      width: 56px;
+      height: 56px;
+      min-width: 56px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #3d2a1a, #1f150f);
+      border: 2px solid #b8863a;
+      color: #b8863a;
+      font-size: 1.1rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.5s cubic-bezier(0.2, 0.9, 0.3, 1);
+      box-shadow: 
+        0 0 30px rgba(184, 134, 58, 0.08),
+        inset 0 0 30px rgba(184, 134, 58, 0.03),
+        0 4px 0 #6a4a2a;
+      text-decoration: none;
+      flex-shrink: 0;
+      z-index: 2;
+      font-family: 'Playfair Display', serif;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      gap: 6px;
+      font-size: 0.55rem;
+      text-transform: uppercase;
+      color: #b8863a;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .nav-arrow::before {
+      content: '';
+      position: absolute;
+      top: -2px;
+      left: -2px;
+      right: -2px;
+      bottom: -2px;
+      border-radius: 50%;
+      background: conic-gradient(from 0deg, #b8863a22, #8a6a3a22, #b8863a22, #8a6a3a22, #b8863a22);
+      animation: spinGlow 8s linear infinite;
+      z-index: -1;
+    }
+
+    @keyframes spinGlow {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    .nav-arrow i {
+      font-size: 0.9rem;
+      color: #b8863a;
+      transition: all 0.3s ease;
+      position: relative;
+      z-index: 1;
+    }
+
+    .nav-arrow span {
+      position: relative;
+      z-index: 1;
+    }
+
+    .nav-arrow:hover {
+      background: linear-gradient(135deg, #4d3a2a, #1f150f);
+      border-color: #d4a84a;
+      box-shadow: 
+        0 0 50px rgba(184, 134, 58, 0.15),
+        inset 0 0 40px rgba(184, 134, 58, 0.05),
+        0 4px 0 #6a4a2a;
+      transform: scale(1.05) translateY(-2px);
+      color: #d4a84a;
+    }
+
+    .nav-arrow:hover i {
+      color: #d4a84a;
+      text-shadow: 0 0 30px rgba(184, 134, 58, 0.2);
+    }
+
+    .nav-arrow:active {
+      transform: scale(0.92);
+    }
+
+    /* main card – cowboy style */
+    .card {
+      max-width: 460px;
+      width: 100%;
+      background: linear-gradient(145deg, #3d2a1a, #1f150f);
+      border-radius: 2rem;
+      padding: 2.5rem 2rem 2.8rem;
+      position: relative;
+      z-index: 1;
+      border: 3px solid #b8863a;
+      box-shadow: 
+        0 0 60px rgba(184, 134, 58, 0.06),
+        0 0 120px rgba(184, 134, 58, 0.03),
+        inset 0 0 80px rgba(184, 134, 58, 0.02),
+        0 8px 0 #6a4a2a,
+        0 12px 40px rgba(0, 0, 0, 0.6);
+      transition: all 0.5s cubic-bezier(0.2, 0.9, 0.3, 1);
+      animation: fadeCowboy 1.2s ease-out forwards;
+      opacity: 0;
+      overflow: visible;
+    }
+
+    @keyframes fadeCowboy {
+      0% { 
+        opacity: 0; 
+        transform: translateY(30px) scale(0.95);
+        filter: blur(4px);
+      }
+      60% {
+        filter: blur(1px);
+        transform: translateY(-4px) scale(1.01);
+      }
+      100% { 
+        opacity: 1; 
+        transform: translateY(0) scale(1);
+        filter: blur(0);
+      }
+    }
+
+    /* western rope border */
+    .card::before {
+      content: '';
+      position: absolute;
+      top: -6px;
+      left: -6px;
+      right: -6px;
+      bottom: -6px;
+      border-radius: 2.2rem;
+      background: conic-gradient(from 0deg, 
+        #b8863a, #8a6a3a, #b8863a, #6a4a2a, #b8863a, #8a6a3a, #b8863a);
+      background-size: 400% 400%;
+      z-index: -1;
+      animation: ropeBorder 10s ease-in-out infinite;
+      filter: blur(0px);
+      opacity: 0.5;
+    }
+
+    @keyframes ropeBorder {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    .card::after {
+      content: '';
+      position: absolute;
+      top: 12px;
+      left: 12px;
+      right: 12px;
+      bottom: 12px;
+      border: 1px solid rgba(184, 134, 58, 0.12);
+      border-radius: 1.4rem;
+      pointer-events: none;
+      z-index: 0;
+      box-shadow: inset 0 0 60px rgba(184, 134, 58, 0.02);
+    }
+
+    .card:hover {
+      transform: translateY(-4px);
+      box-shadow: 
+        0 0 80px rgba(184, 134, 58, 0.08),
+        0 0 160px rgba(184, 134, 58, 0.04),
+        inset 0 0 80px rgba(184, 134, 58, 0.03),
+        0 8px 0 #6a4a2a,
+        0 16px 50px rgba(0, 0, 0, 0.7);
+    }
+
+    /* avatar – cowboy style (like a wanted poster) */
+    .avatar {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 1.4rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    .avatar-circle {
+      width: 130px;
+      height: 130px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 
+        0 0 0 4px #b8863a,
+        0 0 0 8px rgba(184, 134, 58, 0.15),
+        0 0 0 12px rgba(184, 134, 58, 0.06),
+        0 0 60px rgba(184, 134, 58, 0.12),
+        inset 0 0 40px rgba(184, 134, 58, 0.03);
+      border: 2px solid #6a4a2a;
+      overflow: hidden;
+      background: linear-gradient(135deg, #2a1f18, #3d2a1a);
+      position: relative;
+      transition: all 0.5s ease;
+    }
+
+    .avatar-circle::after {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: conic-gradient(from 0deg, 
+        transparent, rgba(184, 134, 58, 0.08), 
+        transparent, rgba(106, 74, 42, 0.08), 
+        transparent, rgba(184, 134, 58, 0.08), 
+        transparent);
+      animation: spinGlow 12s linear infinite;
+      pointer-events: none;
+      z-index: 2;
+    }
+
+    /* leather texture overlay on avatar */
+    .avatar-circle::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: 
+        repeating-linear-gradient(45deg, transparent, transparent 2px, rgba(184, 134, 58, 0.02) 2px, rgba(184, 134, 58, 0.02) 3px),
+        repeating-linear-gradient(-45deg, transparent, transparent 2px, rgba(184, 134, 58, 0.02) 2px, rgba(184, 134, 58, 0.02) 3px);
+      pointer-events: none;
+      z-index: 3;
+      border-radius: 50%;
+    }
+
+    .avatar-circle img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      position: relative;
+      z-index: 1;
+      filter: sepia(0.4) contrast(1.1) brightness(0.8) saturate(0.9);
+      loading: lazy;
+    }
+
+    .avatar-circle i {
+      display: none;
+      position: relative;
+      z-index: 1;
+      font-size: 5rem;
+      color: #b8863a;
+      opacity: 0.2;
+    }
+
+    .avatar-circle img:not([src]), 
+    .avatar-circle img[src=""] {
+      display: none;
+    }
+    .avatar-circle img:not([src]) + i,
+    .avatar-circle img[src=""] + i {
+      display: inline-block;
+    }
+
+    /* name & title – cowboy style */
+    .name-title {
+      text-align: center;
+      margin-bottom: 1.6rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    .name {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.4rem;
+      font-weight: 900;
+      font-style: italic;
+      background: linear-gradient(135deg, #b8863a, #d4a84a, #8a6a3a, #b8863a);
+      background-size: 300% 300%;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      animation: cowboyText 5s ease-in-out infinite;
+      letter-spacing: 1px;
+      text-shadow: 0 0 40px rgba(184, 134, 58, 0.05);
+      margin-bottom: 0.2rem;
+    }
+
+    @keyframes cowboyText {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    .name::after {
+      content: '✦ ✦ ✦';
+      display: block;
+      font-family: 'Playfair Display', serif;
+      font-size: 0.6rem;
+      font-style: normal;
+      -webkit-text-fill-color: #b8863a;
+      color: #b8863a;
+      letter-spacing: 10px;
+      margin: 0.6rem auto 0;
+      opacity: 0.3;
+    }
+
+    .title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1rem;
+      font-weight: 400;
+      font-style: italic;
+      color: #b8863a;
+      background: rgba(184, 134, 58, 0.05);
+      display: inline-block;
+      padding: 0.3rem 2rem;
+      border-radius: 30px;
+      letter-spacing: 1.5px;
+      border: 1px solid rgba(184, 134, 58, 0.1);
+      backdrop-filter: blur(2px);
+      box-shadow: inset 0 0 30px rgba(184, 134, 58, 0.02);
+    }
+
+    .title i {
+      margin-right: 8px;
+      opacity: 0.7;
+      color: #8a6a3a;
+      -webkit-text-fill-color: #8a6a3a;
+    }
+
+    /* divider – cowboy style (like a rope) */
+    .divider {
+      height: 3px;
+      background: linear-gradient(90deg, transparent, #b8863a, #6a4a2a, #b8863a, transparent);
+      margin: 1.2rem 0 1.6rem;
+      opacity: 0.4;
+      border-radius: 10px;
+      position: relative;
+      box-shadow: 0 0 30px rgba(184, 134, 58, 0.05);
+    }
+
+    .divider::after {
+      content: '✦ ✦ ✦';
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      color: #b8863a;
+      font-size: 0.5rem;
+      background: #3d2a1a;
+      padding: 0 14px;
+      letter-spacing: 6px;
+      opacity: 0.4;
+      text-shadow: 0 0 20px rgba(184, 134, 58, 0.1);
+    }
+
+    /* contact list – cowboy style */
+    .contact-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0.8rem;
+      margin-bottom: 2rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    .contact-item {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      padding: 0.6rem 0.8rem 0.6rem 0.5rem;
+      border-radius: 60px;
+      background: rgba(184, 134, 58, 0.02);
+      transition: all 0.5s cubic-bezier(0.2, 0.9, 0.3, 1);
+      border: 1px solid rgba(184, 134, 58, 0.04);
+      text-decoration: none;
+      color: #d4c4a0;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .contact-item::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(184, 134, 58, 0.03), transparent);
+      transition: left 0.8s ease;
+    }
+
+    .contact-item:hover::before {
+      left: 100%;
+    }
+
+    .contact-item:hover {
+      background: rgba(184, 134, 58, 0.04);
+      border-color: rgba(184, 134, 58, 0.15);
+      box-shadow: 0 0 40px rgba(184, 134, 58, 0.03), inset 0 0 40px rgba(184, 134, 58, 0.02);
+      transform: translateX(6px);
+    }
+
+    .contact-icon {
+      width: 46px;
+      height: 46px;
+      background: rgba(184, 134, 58, 0.04);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+      color: #b8863a;
+      flex-shrink: 0;
+      border: 1px solid rgba(184, 134, 58, 0.06);
+      transition: all 0.5s ease;
+      box-shadow: 0 0 20px rgba(184, 134, 58, 0.02);
+    }
+
+    .contact-item:hover .contact-icon {
+      background: rgba(184, 134, 58, 0.06);
+      border-color: rgba(184, 134, 58, 0.15);
+      box-shadow: 0 0 30px rgba(184, 134, 58, 0.04);
+      color: #d4a84a;
+    }
+
+    .contact-info {
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+      min-width: 0;
+    }
+
+    .contact-label {
+      font-size: 0.55rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      color: #8a7a5a;
+      opacity: 0.6;
+      font-family: 'Inter', sans-serif;
+    }
+
+    .contact-value {
+      font-size: 0.95rem;
+      font-weight: 500;
+      color: #d4c4a0;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      font-family: 'Inter', sans-serif;
+    }
+
+    .contact-item .fa-chevron-right {
+      color: #b8863a !important;
+      opacity: 0.15 !important;
+      transition: all 0.4s ease;
+      font-size: 0.7rem;
+    }
+
+    .contact-item:hover .fa-chevron-right {
+      opacity: 0.7 !important;
+      transform: translateX(6px);
+      color: #d4a84a !important;
+    }
+
+    /* action buttons – cowboy style */
+    .actions {
+      display: flex;
+      justify-content: center;
+      gap: 0.7rem;
+      flex-wrap: wrap;
+      margin: 0.5rem 0 0.4rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    .action-btn {
+      background: rgba(184, 134, 58, 0.03);
+      border: 1px solid rgba(184, 134, 58, 0.06);
+      border-radius: 60px;
+      padding: 0.7rem 1.2rem;
+      font-weight: 600;
+      font-size: 0.75rem;
+      color: #b8863a;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.4s cubic-bezier(0.2, 0.9, 0.3, 1);
+      cursor: pointer;
+      text-decoration: none;
+      flex: 1 0 auto;
+      justify-content: center;
+      font-family: 'Inter', sans-serif;
+      letter-spacing: 0.3px;
+      position: relative;
+      overflow: hidden;
+      text-transform: uppercase;
+    }
+
+    .action-btn::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(184, 134, 58, 0.03), transparent);
+      transition: left 0.6s ease;
+    }
+
+    .action-btn:hover::before {
+      left: 100%;
+    }
+
+    .action-btn i {
+      font-size: 1rem;
+      color: #b8863a;
+      transition: all 0.3s ease;
+    }
+
+    .action-btn:hover {
+      background: rgba(184, 134, 58, 0.06);
+      border-color: rgba(184, 134, 58, 0.15);
+      box-shadow: 0 0 40px rgba(184, 134, 58, 0.04);
+      transform: scale(1.03);
+      color: #d4a84a;
+    }
+
+    .action-btn:hover i {
+      color: #d4a84a;
+      text-shadow: 0 0 30px rgba(184, 134, 58, 0.15);
+    }
+
+    /* WhatsApp button – full width, cowboy style */
+    .action-btn.whatsapp-btn {
+      flex: 1 1 100%;
+      background: rgba(37, 211, 102, 0.03);
+      border-color: rgba(37, 211, 102, 0.06);
+      color: #7ddfa0;
+      margin-top: 0.2rem;
+    }
+
+    .action-btn.whatsapp-btn i {
+      color: #25d366;
+    }
+
+    .action-btn.whatsapp-btn:hover {
+      background: rgba(37, 211, 102, 0.06);
+      border-color: rgba(37, 211, 102, 0.15);
+      box-shadow: 0 0 50px rgba(37, 211, 102, 0.04);
+      color: #25d366;
+    }
+
+    .action-btn.whatsapp-btn:hover i {
+      color: #25d366;
+      text-shadow: 0 0 30px rgba(37, 211, 102, 0.15);
+    }
+
+    /* decorative corner flourishes - like cowboy stars */
+    .card .corner {
+      position: absolute;
+      font-size: 1.4rem;
+      color: #b8863a;
+      opacity: 0.06;
+      font-family: 'Playfair Display', serif;
+      z-index: 0;
+      pointer-events: none;
+      animation: starTwinkle 4s ease-in-out infinite alternate;
+    }
+
+    @keyframes starTwinkle {
+      0%, 100% { opacity: 0.04; transform: scale(0.9); }
+      50% { opacity: 0.12; transform: scale(1.1); }
+    }
+
+    .corner.tl { top: 16px; left: 20px; animation-delay: 0s; }
+    .corner.tr { top: 16px; right: 20px; animation-delay: 0.5s; }
+    .corner.bl { bottom: 16px; left: 20px; animation-delay: 1s; }
+    .corner.br { bottom: 16px; right: 20px; animation-delay: 1.5s; }
+
+    /* responsive */
+    @media (max-width: 520px) {
+      body {
+        gap: 0.6rem;
+        padding: 1rem;
+      }
+      .nav-arrow {
+        width: 48px;
+        height: 48px;
+        min-width: 48px;
+        font-size: 0.45rem;
+      }
+      .nav-arrow i {
+        font-size: 0.8rem;
+      }
+    }
+
+    @media (max-width: 440px) {
+      body {
+        gap: 0.4rem;
+        padding: 0.8rem;
+      }
+      .card {
+        padding: 1.8rem 1.2rem 2rem;
+        border-radius: 1.4rem;
+      }
+      .card::before {
+        border-radius: 1.8rem;
+      }
+      .name {
+        font-size: 1.8rem;
+      }
+      .avatar-circle {
+        width: 100px;
+        height: 100px;
+      }
+      .contact-item {
+        padding: 0.4rem 0.6rem 0.4rem 0.4rem;
+      }
+      .contact-icon {
+        width: 38px;
+        height: 38px;
+        font-size: 1rem;
+      }
+      .action-btn {
+        padding: 0.5rem 0.7rem;
+        font-size: 0.6rem;
+        flex: 1 1 40%;
+        gap: 5px;
+        min-width: 55px;
+      }
+      .action-btn.whatsapp-btn {
+        flex: 1 1 100%;
+      }
+      .nav-arrow {
+        width: 38px;
+        height: 38px;
+        min-width: 38px;
+        font-size: 0.4rem;
+      }
+      .nav-arrow i {
+        font-size: 0.65rem;
+      }
+      .corner { display: none; }
+    }
+
+    @media (max-width: 360px) {
+      body {
+        flex-direction: column;
+        gap: 0.8rem;
+        padding: 1rem;
+      }
+      .nav-arrow {
+        width: 48px;
+        height: 48px;
+        min-width: 48px;
+        font-size: 0.5rem;
+        transform: rotate(90deg);
+      }
+      .nav-arrow:hover {
+        transform: rotate(90deg) scale(1.05);
+      }
+      .nav-arrow:active {
+        transform: rotate(90deg) scale(0.92);
+      }
+      .nav-arrow i {
+        font-size: 0.7rem;
+      }
+      .actions {
+        flex-direction: column;
+        align-items: stretch;
+      }
+      .action-btn {
+        flex: 1 1 auto;
+      }
+      .action-btn.whatsapp-btn {
+        flex: 1 1 auto;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Left Arrow -->
+  <a href="Van-gogh.html" class="nav-arrow" aria-label="Previous card or back navigation">
+    <i class="fas fa-chevron-left"></i> <span>Prev</span>
+  </a>
+
+  <!-- Main Card -->
+  <div class="card" role="main" aria-label="Cowboy Digital Business Card">
+    <!-- Corner flourishes - like cowboy stars -->
+    <span class="corner tl">✦</span>
+    <span class="corner tr">✦</span>
+    <span class="corner bl">✦</span>
+    <span class="corner br">✦</span>
+
+    <!-- Avatar -->
+    <div class="avatar">
+      <div class="avatar-circle">
+        <img src="vector-avatar.png" alt="Avatar of Younis Ibrahim" loading="lazy" onerror="this.style.display='none'">
+        <i class="fas fa-user-circle" aria-hidden="true"></i>
+      </div>
+    </div>
+
+    <!-- Name & Title -->
+    <div class="name-title">
+      <div class="name">Younis Ibrahim</div>
+      <span class="title"><i class="fas fa-hat-cowboy"></i>Web Developer</span>
+    </div>
+
+    <!-- Divider -->
+    <div class="divider"></div>
+
+    <!-- Contact List -->
+    <div class="contact-list">
+      <!-- Phone -->
+      <a href="tel:+201272069150" class="contact-item" aria-label="Call Younis">
+        <span class="contact-icon"><i class="fas fa-phone-alt"></i></span>
+        <span class="contact-info">
+          <span class="contact-label">Phone</span>
+          <span class="contact-value">+20 12 (720) 69 150</span>
+        </span>
+        <i class="fas fa-chevron-right"></i>
+      </a>
+
+      <!-- Email -->
+      <a href="mailto:Ahmad.Ibrahim.abdelslam@gmail.com" class="contact-item" aria-label="Email Younis">
+        <span class="contact-icon"><i class="fas fa-envelope"></i></span>
+        <span class="contact-info">
+          <span class="contact-label">Email</span>
+          <span class="contact-value">Ahmad.Ibrahim.abdelslam@gmail.com</span>
+        </span>
+        <i class="fas fa-chevron-right"></i>
+      </a>
+
+      <!-- Website -->
+      <a href="#" class="contact-item" aria-label="Visit portfolio">
+        <span class="contact-icon"><i class="fas fa-globe"></i></span>
+        <span class="contact-info">
+          <span class="contact-label">Website</span>
+          <span class="contact-value">younis.dev</span>
+        </span>
+        <i class="fas fa-chevron-right"></i>
+      </a>
+
+      <!-- Address -->
+      <div class="contact-item" style="cursor:default;">
+        <span class="contact-icon"><i class="fas fa-map-pin"></i></span>
+        <span class="contact-info">
+          <span class="contact-label">Studio</span>
+          <span class="contact-value">Cairo, Egypt</span>
+        </span>
+      </div>
+    </div>
+
+    <!-- Action Buttons -->
+    <div class="actions">
+      <a href="https://www.linkedin.com/in/ahmad-abdelsalam-91a7a5329/" target="_blank" class="action-btn" aria-label="LinkedIn profile">
+        <i class="fab fa-linkedin-in"></i> LinkedIn
+      </a>
+      <a href="https://x.com/YOUNIS_58" target="_blank" class="action-btn" aria-label="X profile">
+        <i class="fab fa-x-twitter"></i> X
+      </a>
+      <a href="https://github.com/yourusername" target="_blank" class="action-btn" aria-label="GitHub profile">
+        <i class="fab fa-github"></i> GitHub
+      </a>
+      <!-- WhatsApp button - full width, alone on its own line -->
+      <a href="https://wa.me/+201123674523?text=Hi%20I%20want%20to%20make%20my%20own%20Business%20card" target="_blank" class="action-btn whatsapp-btn" aria-label="Contact on WhatsApp">
+        <i class="fab fa-whatsapp"></i> Make It Yours
+      </a>
+    </div>
+  </div>
+
+  <!-- Right Arrow -->
+  <a href="Natural.html" class="nav-arrow" aria-label="Next card or forward navigation">
+    <span>Next</span> <i class="fas fa-chevron-right"></i>
+  </a>
+
+  <!-- Page Transition Styles & Script -->
+  <style>
+    body { animation: none; }
+    .page-transition {
+      animation: fadeOut 0.4s ease forwards;
+    }
+    @keyframes fadeOut {
+      0% { opacity: 1; }
+      100% { opacity: 0; }
+    }
+  </style>
+
+  <script>
+    // Page transition for internal links
+    document.addEventListener('click', function(e) {
+      const link = e.target.closest('a');
+      if (link && link.href && !link.target && link.href.indexOf('Business-card-2.html') !== -1) {
+        e.preventDefault();
+        document.body.classList.add('page-transition');
+        setTimeout(() => {
+          window.location.href = link.href;
+        }, 400);
+      }
+    });
+  </script>
+</body>
+</html>

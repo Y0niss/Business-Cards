@@ -1,0 +1,742 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+  <title>Cyberpunk Business Card</title>
+  <!-- Font Awesome Icons (free) -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <!-- Google Font (Orbitron for cyberpunk vibe + Inter for readability) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: #0b0d15;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      padding: 1.5rem;
+      margin: 0;
+      position: relative;
+      overflow-x: hidden;
+      gap: 1rem;
+    }
+
+    /* cyberpunk background glitch effect */
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: 
+        radial-gradient(circle at 20% 50%, rgba(0, 255, 255, 0.05) 0%, transparent 50%),
+        radial-gradient(circle at 80% 50%, rgba(255, 0, 255, 0.05) 0%, transparent 50%),
+        radial-gradient(circle at 50% 80%, rgba(0, 255, 200, 0.03) 0%, transparent 40%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* grid overlay */
+    body::after {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-image: 
+        linear-gradient(rgba(0, 255, 255, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0, 255, 255, 0.03) 1px, transparent 1px);
+      background-size: 40px 40px;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* Navigation arrows - cyberpunk style */
+    .nav-arrow {
+      width: 56px;
+      height: 56px;
+      min-width: 56px;
+      border-radius: 50%;
+      background: rgba(11, 13, 21, 0.85);
+      backdrop-filter: blur(8px);
+      border: 2px solid rgba(0, 255, 255, 0.25);
+      color: #00ffff;
+      font-size: 1.1rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 
+        0 0 30px rgba(0, 255, 255, 0.05),
+        inset 0 0 30px rgba(0, 255, 255, 0.03);
+      text-decoration: none;
+      flex-shrink: 0;
+      z-index: 2;
+      font-family: 'Orbitron', monospace;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      gap: 4px;
+      text-transform: uppercase;
+      font-size: 0.65rem;
+    }
+
+    .nav-arrow i {
+      font-size: 0.9rem;
+      color: #00ffff;
+      transition: all 0.3s ease;
+    }
+
+    .nav-arrow:hover {
+      background: rgba(0, 255, 255, 0.08);
+      border-color: rgba(0, 255, 255, 0.5);
+      box-shadow: 0 0 40px rgba(0, 255, 255, 0.1), inset 0 0 30px rgba(0, 255, 255, 0.05);
+      transform: scale(1.05);
+      color: #ff00ff;
+    }
+
+    .nav-arrow:hover i {
+      color: #ff00ff;
+      text-shadow: 0 0 30px rgba(255, 0, 255, 0.3);
+    }
+
+    .nav-arrow:active {
+      transform: scale(0.92);
+    }
+
+    /* main card – cyberpunk style */
+    .card {
+      max-width: 440px;
+      width: 100%;
+      background: rgba(11, 13, 21, 0.92);
+      backdrop-filter: blur(12px);
+      border-radius: 1.8rem;
+      padding: 2rem 1.8rem 2.2rem;
+      position: relative;
+      z-index: 1;
+      border: 2px solid rgba(0, 255, 255, 0.25);
+      box-shadow: 
+        0 0 30px rgba(0, 255, 255, 0.08),
+        0 0 60px rgba(255, 0, 255, 0.05),
+        inset 0 0 60px rgba(0, 255, 255, 0.02),
+        0 25px 45px -12px rgba(0, 0, 0, 0.8);
+      transition: all 0.3s ease;
+      /* Fade-in animation - loads in 1 second */
+      animation: fadeCyberpunk 1s ease-out forwards;
+      opacity: 0;
+    }
+
+    @keyframes fadeCyberpunk {
+      0% { 
+        opacity: 0; 
+        filter: blur(10px) brightness(0.3);
+        transform: scale(0.96);
+      }
+      40% {
+        filter: blur(3px) brightness(1.3);
+        transform: scale(1.01);
+      }
+      100% { 
+        opacity: 1; 
+        filter: blur(0) brightness(1);
+        transform: scale(1);
+      }
+    }
+
+    .card::before {
+      content: '';
+      position: absolute;
+      top: -2px;
+      left: -2px;
+      right: -2px;
+      bottom: -2px;
+      border-radius: 1.8rem;
+      background: linear-gradient(45deg, #00ffff22, #ff00ff22, #00ffff22, #ff00ff22);
+      background-size: 300% 300%;
+      z-index: -1;
+      animation: borderGlow 4s ease-in-out infinite;
+      filter: blur(2px);
+    }
+
+    @keyframes borderGlow {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    .card:hover {
+      transform: translateY(-4px);
+      box-shadow: 
+        0 0 40px rgba(0, 255, 255, 0.12),
+        0 0 80px rgba(255, 0, 255, 0.08),
+        inset 0 0 60px rgba(0, 255, 255, 0.03),
+        0 30px 55px -10px rgba(0, 0, 0, 0.9);
+      border-color: rgba(0, 255, 255, 0.5);
+    }
+
+    /* avatar / photo */
+    .avatar {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 1.2rem;
+    }
+
+    .avatar-circle {
+      width: 110px;
+      height: 110px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 
+        0 0 30px rgba(0, 255, 255, 0.2),
+        0 0 60px rgba(255, 0, 255, 0.1),
+        inset 0 0 20px rgba(0, 255, 255, 0.1);
+      border: 2px solid #00ffff;
+      transition: all 0.3s ease;
+      overflow: hidden;
+      background: linear-gradient(135deg, #0a0e1a, #1a0a2a);
+      position: relative;
+    }
+
+    .avatar-circle::after {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: conic-gradient(from 0deg, transparent, rgba(0, 255, 255, 0.1), transparent, rgba(255, 0, 255, 0.1), transparent);
+      animation: spinGlow 8s linear infinite;
+      pointer-events: none;
+    }
+
+    @keyframes spinGlow {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    .avatar-circle img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      position: relative;
+      z-index: 1;
+      /* Lazy loading - image loads when it enters viewport */
+      loading: lazy;
+    }
+
+    .avatar-circle i {
+      display: none;
+      position: relative;
+      z-index: 1;
+    }
+
+    .avatar-circle img:not([src]), 
+    .avatar-circle img[src=""] {
+      display: none;
+    }
+    .avatar-circle img:not([src]) + i,
+    .avatar-circle img[src=""] + i {
+      display: inline-block;
+      font-size: 4rem;
+      color: #00ffff;
+      text-shadow: 0 0 30px rgba(0, 255, 255, 0.4);
+    }
+
+    /* name & title - cyberpunk */
+    .name-title {
+      text-align: center;
+      margin-bottom: 1.8rem;
+    }
+
+    .name {
+      font-family: 'Orbitron', monospace;
+      font-size: 1.9rem;
+      font-weight: 800;
+      color: #00ffff;
+      letter-spacing: 2px;
+      text-shadow: 
+        0 0 20px rgba(0, 255, 255, 0.3),
+        0 0 40px rgba(0, 255, 255, 0.1),
+        0 4px 8px rgba(0, 0, 0, 0.5);
+      margin-bottom: 0.3rem;
+      text-transform: uppercase;
+    }
+
+    .title {
+      font-family: 'Orbitron', monospace;
+      font-size: 0.8rem;
+      font-weight: 500;
+      color: #ff00ff;
+      background: rgba(255, 0, 255, 0.08);
+      display: inline-block;
+      padding: 0.35rem 1.4rem;
+      border-radius: 40px;
+      letter-spacing: 1.5px;
+      border: 1px solid rgba(255, 0, 255, 0.25);
+      text-shadow: 0 0 20px rgba(255, 0, 255, 0.2);
+      box-shadow: inset 0 0 20px rgba(255, 0, 255, 0.05);
+      text-transform: uppercase;
+    }
+
+    .title i {
+      margin-right: 6px;
+      opacity: 0.7;
+    }
+
+    /* divider cyberpunk */
+    .divider {
+      height: 2px;
+      background: linear-gradient(90deg, transparent, #00ffff, #ff00ff, #00ffff, transparent);
+      margin: 1.2rem 0 1.6rem;
+      opacity: 0.6;
+      border-radius: 10px;
+      box-shadow: 0 0 20px rgba(0, 255, 255, 0.15);
+      position: relative;
+    }
+
+    .divider::after {
+      content: '◆';
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      color: #ff00ff;
+      font-size: 0.6rem;
+      background: #0b0d15;
+      padding: 0 8px;
+      text-shadow: 0 0 20px rgba(255, 0, 255, 0.4);
+    }
+
+    /* contact list - cyberpunk */
+    .contact-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0.9rem;
+      margin-bottom: 2rem;
+    }
+
+    .contact-item {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      padding: 0.5rem 0.8rem 0.5rem 0.5rem;
+      border-radius: 60px;
+      background: rgba(0, 255, 255, 0.03);
+      transition: all 0.3s ease;
+      border: 1px solid rgba(0, 255, 255, 0.08);
+      text-decoration: none;
+      color: #b0d4e8;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .contact-item::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(0, 255, 255, 0.05), transparent);
+      transition: left 0.5s ease;
+    }
+
+    .contact-item:hover::before {
+      left: 100%;
+    }
+
+    .contact-item:hover {
+      background: rgba(0, 255, 255, 0.06);
+      border-color: rgba(0, 255, 255, 0.25);
+      box-shadow: 0 0 30px rgba(0, 255, 255, 0.05), inset 0 0 30px rgba(0, 255, 255, 0.02);
+      transform: translateX(4px);
+    }
+
+    .contact-icon {
+      width: 44px;
+      height: 44px;
+      background: rgba(0, 255, 255, 0.06);
+      border-radius: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+      color: #00ffff;
+      flex-shrink: 0;
+      border: 1px solid rgba(0, 255, 255, 0.12);
+      box-shadow: 0 0 20px rgba(0, 255, 255, 0.05);
+      transition: all 0.3s ease;
+    }
+
+    .contact-item:hover .contact-icon {
+      background: rgba(0, 255, 255, 0.12);
+      border-color: rgba(0, 255, 255, 0.3);
+      box-shadow: 0 0 30px rgba(0, 255, 255, 0.1);
+    }
+
+    .contact-info {
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+      min-width: 0;
+    }
+
+    .contact-label {
+      font-size: 0.6rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 1.2px;
+      color: #7a9bb5;
+      opacity: 0.8;
+      font-family: 'Orbitron', monospace;
+    }
+
+    .contact-value {
+      font-size: 0.95rem;
+      font-weight: 500;
+      color: #d0e8f5;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .contact-value i {
+      font-size: 0.8rem;
+      margin-left: 4px;
+      color: #00ffff;
+      opacity: 0.5;
+    }
+
+    .contact-item .fa-chevron-right {
+      color: #00ffff !important;
+      opacity: 0.3 !important;
+      transition: all 0.3s ease;
+    }
+
+    .contact-item:hover .fa-chevron-right {
+      opacity: 0.8 !important;
+      transform: translateX(4px);
+    }
+
+    /* action buttons - cyberpunk */
+    .actions {
+      display: flex;
+      justify-content: center;
+      gap: 0.8rem;
+      flex-wrap: wrap;
+      margin: 0.5rem 0 0.8rem;
+    }
+
+    .action-btn {
+      background: rgba(0, 255, 255, 0.04);
+      border: 1px solid rgba(0, 255, 255, 0.12);
+      border-radius: 60px;
+      padding: 0.7rem 1.2rem;
+      font-weight: 600;
+      font-size: 0.8rem;
+      color: #b0d4e8;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.3s ease;
+      cursor: pointer;
+      text-decoration: none;
+      flex: 1 0 auto;
+      justify-content: center;
+      font-family: 'Orbitron', monospace;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      position: relative;
+      overflow: hidden;
+      min-width: 80px;
+    }
+
+    .action-btn::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(0, 255, 255, 0.05), transparent);
+      transition: left 0.5s ease;
+    }
+
+    .action-btn:hover::before {
+      left: 100%;
+    }
+
+    .action-btn i {
+      font-size: 1rem;
+      color: #00ffff;
+      transition: all 0.3s ease;
+    }
+
+    .action-btn:hover {
+      background: rgba(0, 255, 255, 0.08);
+      border-color: rgba(0, 255, 255, 0.3);
+      box-shadow: 0 0 30px rgba(0, 255, 255, 0.06), inset 0 0 30px rgba(0, 255, 255, 0.02);
+      transform: scale(1.02);
+      color: #00ffff;
+    }
+
+    .action-btn:hover i {
+      color: #ff00ff;
+      text-shadow: 0 0 30px rgba(255, 0, 255, 0.3);
+    }
+
+    /* WhatsApp button - full width, on its own line */
+    .action-btn.whatsapp-btn {
+      flex: 1 1 100%;
+      background: rgba(37, 211, 102, 0.08);
+      border-color: rgba(37, 211, 102, 0.2);
+      color: #7ddfa0;
+      margin-top: 0.2rem;
+    }
+
+    .action-btn.whatsapp-btn i {
+      color: #25d366;
+    }
+
+    .action-btn.whatsapp-btn:hover {
+      background: rgba(37, 211, 102, 0.15);
+      border-color: rgba(37, 211, 102, 0.4);
+      box-shadow: 0 0 40px rgba(37, 211, 102, 0.08), inset 0 0 30px rgba(37, 211, 102, 0.03);
+      color: #7ddfa0;
+    }
+
+    .action-btn.whatsapp-btn:hover i {
+      color: #00ff88;
+      text-shadow: 0 0 30px rgba(37, 211, 102, 0.3);
+    }
+
+    /* responsive */
+    @media (max-width: 520px) {
+      body {
+        gap: 0.6rem;
+        padding: 1rem;
+      }
+      .nav-arrow {
+        width: 44px;
+        height: 44px;
+        min-width: 44px;
+        font-size: 0.5rem;
+      }
+      .nav-arrow i {
+        font-size: 0.7rem;
+      }
+    }
+
+    @media (max-width: 440px) {
+      body {
+        gap: 0.4rem;
+        padding: 0.8rem;
+      }
+      .card {
+        padding: 1.6rem 1.2rem 1.8rem;
+        border-radius: 1.4rem;
+      }
+      .name {
+        font-size: 1.6rem;
+      }
+      .avatar-circle {
+        width: 90px;
+        height: 90px;
+      }
+      .contact-item {
+        padding: 0.4rem 0.6rem 0.4rem 0.4rem;
+      }
+      .contact-icon {
+        width: 38px;
+        height: 38px;
+        font-size: 1rem;
+      }
+      .action-btn {
+        padding: 0.6rem 0.8rem;
+        font-size: 0.7rem;
+        flex: 1 1 40%;
+        gap: 6px;
+        min-width: 60px;
+      }
+      .action-btn.whatsapp-btn {
+        flex: 1 1 100%;
+      }
+      .nav-arrow {
+        width: 38px;
+        height: 38px;
+        min-width: 38px;
+        font-size: 0.45rem;
+      }
+      .nav-arrow i {
+        font-size: 0.6rem;
+      }
+    }
+
+    @media (max-width: 360px) {
+      body {
+        flex-direction: column;
+        gap: 0.8rem;
+        padding: 1rem;
+      }
+      .nav-arrow {
+        width: 48px;
+        height: 48px;
+        min-width: 48px;
+        font-size: 0.55rem;
+        transform: rotate(90deg);
+      }
+      .nav-arrow:hover {
+        transform: rotate(90deg) scale(1.05);
+      }
+      .nav-arrow:active {
+        transform: rotate(90deg) scale(0.92);
+      }
+      .nav-arrow i {
+        font-size: 0.7rem;
+      }
+      .actions {
+        flex-direction: column;
+        align-items: stretch;
+      }
+      .action-btn {
+        flex: 1 1 auto;
+      }
+      .action-btn.whatsapp-btn {
+        flex: 1 1 auto;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Left Arrow -->
+  <a href="Natural.html" class="nav-arrow" aria-label="Previous card or back navigation">
+    <i class="fas fa-chevron-left"></i> Prev
+  </a>
+
+  <!-- Main Card -->
+  <div class="card" role="main" aria-label="Cyberpunk Digital Business Card">
+    <!-- Avatar -->
+    <div class="avatar">
+      <div class="avatar-circle">
+        <!-- Lazy loading added with loading="lazy" -->
+        <img src="vector-avatar.png" alt="Avatar of Younis Ibrahim" loading="lazy" onerror="this.style.display='none'">
+        <i class="fas fa-user-circle" aria-hidden="true"></i>
+      </div>
+    </div>
+
+    <!-- Name & Title -->
+    <div class="name-title">
+      <div class="name">Younis Ibrahim</div>
+      <span class="title"><i class="fas fa-code" style="margin-right: 6px; opacity:0.6;"></i>Web Developer</span>
+    </div>
+
+    <!-- Divider -->
+    <div class="divider"></div>
+
+    <!-- Contact List -->
+    <div class="contact-list">
+      <!-- Phone -->
+      <a href="tel:+201272069150" class="contact-item" aria-label="Call Younis">
+        <span class="contact-icon"><i class="fas fa-phone-alt"></i></span>
+        <span class="contact-info">
+          <span class="contact-label">Phone</span>
+          <span class="contact-value">+20 12 (720) 69 150</span>
+        </span>
+        <i class="fas fa-chevron-right"></i>
+      </a>
+
+      <!-- Email -->
+      <a href="mailto:Ahmad.Ibrahim.abdelslam@gmail.com" class="contact-item" aria-label="Email Younis">
+        <span class="contact-icon"><i class="fas fa-envelope"></i></span>
+        <span class="contact-info">
+          <span class="contact-label">Email</span>
+          <span class="contact-value">Ahmad.Ibrahim.abdelslam@gmail.com</span>
+        </span>
+        <i class="fas fa-chevron-right"></i>
+      </a>
+
+      <!-- Website -->
+      <a href="#" class="contact-item" aria-label="Visit portfolio">
+        <span class="contact-icon"><i class="fas fa-globe"></i></span>
+        <span class="contact-info">
+          <span class="contact-label">Website</span>
+          <span class="contact-value">younis.dev</span>
+        </span>
+        <i class="fas fa-chevron-right"></i>
+      </a>
+
+      <!-- Address -->
+      <div class="contact-item" style="cursor:default;">
+        <span class="contact-icon"><i class="fas fa-map-pin"></i></span>
+        <span class="contact-info">
+          <span class="contact-label">Studio</span>
+          <span class="contact-value">Cairo, Egypt</span>
+        </span>
+      </div>
+    </div>
+
+    <!-- Action Buttons -->
+    <div class="actions">
+      <a href="https://www.linkedin.com/in/ahmad-abdelsalam-91a7a5329/" target="_blank" class="action-btn" aria-label="LinkedIn profile">
+        <i class="fab fa-linkedin-in"></i> LinkedIn
+      </a>
+      <a href="https://x.com/YOUNIS_58" target="_blank" class="action-btn" aria-label="X profile">
+        <i class="fab fa-x-twitter"></i> X
+      </a>
+      <a href="https://github.com/yourusername" target="_blank" class="action-btn" aria-label="GitHub profile">
+        <i class="fab fa-github"></i> GitHub
+      </a>
+      <!-- WhatsApp button - full width, alone on its own line -->
+      <a href="https://wa.me/+201123674523?text=Hi%20I%20want%20to%20make%20my%20own%20Business%20card" target="_blank" class="action-btn whatsapp-btn" aria-label="Contact on WhatsApp">
+        <i class="fab fa-whatsapp"></i> Make It Yours
+      </a>
+    </div>
+  </div>
+
+  <!-- Right Arrow -->
+  <a href="Colorful.html" class="nav-arrow" aria-label="Next card or forward navigation">
+    Next <i class="fas fa-chevron-right"></i>
+  </a>
+
+  <!-- Page Transition Styles & Script -->
+  <style>
+    body { animation: none; }
+    .page-transition {
+      animation: fadeOut 0.3s ease forwards;
+    }
+    @keyframes fadeOut {
+      0% { opacity: 1; }
+      100% { opacity: 0; }
+    }
+  </style>
+
+  <script>
+    // Page transition for internal links
+    document.addEventListener('click', function(e) {
+      const link = e.target.closest('a');
+      if (link && link.href && !link.target && link.href.indexOf('Business-card-2.html') !== -1) {
+        e.preventDefault();
+        document.body.classList.add('page-transition');
+        setTimeout(() => {
+          window.location.href = link.href;
+        }, 300);
+      }
+    });
+  </script>
+</body>
+</html>
